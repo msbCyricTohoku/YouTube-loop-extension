@@ -1,0 +1,61 @@
+body {
+    font-family: sans-serif;
+    width: 250px; /* Adjust width as needed */
+    padding: 10px;
+  }
+  
+  h3 {
+    margin-top: 0;
+    text-align: center;
+  }
+  
+  .time-input {
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 5px; /* Spacing between elements */
+  }
+  
+  .time-input label {
+    width: 70px; /* Align labels */
+    text-align: right;
+    font-size: 0.9em;
+  }
+  
+  .time-input input[type="number"] {
+    flex-grow: 1; /* Input takes remaining space */
+    width: 60px; /* Give input some base width */
+  }
+  
+  button {
+    padding: 8px 12px;
+    cursor: pointer;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    background-color: #f0f0f0;
+    font-size: 0.9em;
+  }
+  
+  button:hover {
+    background-color: #e0e0e0;
+  }
+  
+  #toggleLoop {
+    display: block; /* Make it take full width */
+    width: 100%;
+    margin-top: 10px;
+    background-color: #4CAF50; /* Green */
+    color: white;
+    border: none;
+  }
+  
+  #toggleLoop.looping {
+    background-color: #f44336; /* Red */
+  }
+  
+  #status {
+    margin-top: 10px;
+    font-size: 0.9em;
+    text-align: center;
+    color: #555;
+  }

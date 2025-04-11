@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>YouTube Loop</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <h3>YouTube Loop</h3>
+  <div class="time-input">
+    <label for="startTime">Start (sec):</label>
+    <input type="number" id="startTime" min="0" placeholder="e.g., 10">
+    <button id="setStart">Set Current</button>
+  </div>
+  <div class="time-input">
+    <label for="endTime">End (sec):</label>
+    <input type="number" id="endTime" min="0" placeholder="e.g., 30">
+    <button id="setEnd">Set Current</button>
+  </div>
+  <button id="toggleLoop">Start Loop</button>
+  <p id="status">Status: Idle</p>
+
+  <script src="popup.js"></script>
+</body>
+</html>
