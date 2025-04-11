@@ -34,7 +34,6 @@ A simple Chrome extension to loop a selected time section of any YouTube video.
     ```bash
     git clone https://github.com/msbCyricTohoku/YouTube-loop-extension.git
     ```
-    (Replace with your actual repository URL)
 2.  Open Google Chrome and navigate to `chrome://extensions/`.
 3.  Enable **Developer mode** using the toggle switch in the top-right corner.
 4.  Click the **Load unpacked** button.
@@ -46,7 +45,7 @@ A simple Chrome extension to loop a selected time section of any YouTube video.
 ## Usage
 
 1.  Navigate to any video page on `www.youtube.com`.
-2.  Click the **YouTube Loop** extension icon in your Chrome toolbar (it looks like [Describe Icon or add small icon image if possible]).
+2.  Click the **YouTube Loop** extension icon in your Chrome toolbar.
 3.  A popup window will appear.
 4.  Enter the desired **Start Time** and **End Time** in seconds into the input fields.
 5.  *Alternatively*, play the video to the desired start or end points and click the corresponding "**Set Current**" button in the popup to capture the current video time.
