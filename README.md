@@ -32,7 +32,7 @@ A simple Chrome extension to loop a selected time section of any YouTube video.
 
 1.  Clone this repository or download it as a ZIP file.
     ```bash
-    git clone [git@github.com:msbCyricTohoku/YouTube-loop-extension.git](git@github.com:msbCyricTohoku/YouTube-loop-extension.git) 
+    git clone https://github.com/msbCyricTohoku/YouTube-loop-extension.git
     ```
     (Replace with your actual repository URL)
 2.  Open Google Chrome and navigate to `chrome://extensions/`.
