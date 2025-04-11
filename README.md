@@ -3,10 +3,11 @@
 [![Version](https://img.shields.io/badge/version-1.0-blue)](manifest.json)
 [![License: GPL v3](https://img.shields.io/badge/License-GPL%20v3-blue.svg)](LICENSE) 
 [![Chrome Web Store](https://img.shields.io/badge/Chrome%20Web%20Store-Link%20(TBA)-lightgrey)](PLACEHOLDER_LINK_TO_STORE)
+
 A simple Chrome extension to loop a selected time section of any YouTube video.
 
 ![Screenshot of YouTube Loop Extension](screen.png)
-*(Screenshot showing the extension popup with start/end time inputs)*
+
 
 ---
 
