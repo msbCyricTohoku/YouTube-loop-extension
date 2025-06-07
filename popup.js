@@ -4,10 +4,16 @@ document.addEventListener('DOMContentLoaded', () => {
     const setStartButton = document.getElementById('setStart');
     const setEndButton = document.getElementById('setEnd');
     const toggleLoopButton = document.getElementById('toggleLoop');
+    const resetButton = document.getElementById('resetTimes');
     const statusElement = document.getElementById('status');
   
     let currentTabId = null;
     let isLooping = false;
+
+    function setStatus(text, type = 'idle') {
+        statusElement.textContent = text;
+        statusElement.className = type;
+    }
   
     //get active tab to send messages
     chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
@@ -16,7 +22,7 @@ document.addEventListener('DOMContentLoaded', () => {
         //request initial state from content script when popup opens
         chrome.tabs.sendMessage(currentTabId, { action: "getState" }, (response) => {
           if (chrome.runtime.lastError) {
-            statusElement.textContent = "Error: Couldn't connect to page. Reload page?";
+            setStatus("Error: Couldn't connect to page. Reload page?", "error");
             console.error(chrome.runtime.lastError.message);
             disableInputs();
             return;
@@ -26,14 +32,14 @@ document.addEventListener('DOMContentLoaded', () => {
             startTimeInput.value = response.start || '';
             endTimeInput.value = response.end || '';
             updateLoopButton();
-            statusElement.textContent = `Status: ${isLooping ? 'Looping' : 'Idle'}`;
+            setStatus(`Status: ${isLooping ? 'Looping' : 'Idle'}`, isLooping ? 'looping' : 'idle');
           } else {
-             statusElement.textContent = "Status: Not on YouTube video?";
+             setStatus("Status: Not on YouTube video?", "error");
              disableInputs();
           }
         });
       } else {
-        statusElement.textContent = "Status: Not on YouTube video";
+        setStatus("Status: Not on YouTube video", "error");
         disableInputs();
       }
     });
@@ -71,7 +77,7 @@ document.addEventListener('DOMContentLoaded', () => {
       chrome.tabs.sendMessage(currentTabId, { action: "getCurrentTime" }, (response) => {
          if (chrome.runtime.lastError) {
              console.error("Error getting current time:", chrome.runtime.lastError.message);
-             statusElement.textContent = "Error getting time.";
+             setStatus("Error getting time.", "error");
              return;
          }
         if (response && response.time !== undefined) {
@@ -85,7 +91,7 @@ document.addEventListener('DOMContentLoaded', () => {
       chrome.tabs.sendMessage(currentTabId, { action: "getCurrentTime" }, (response) => {
          if (chrome.runtime.lastError) {
              console.error("Error getting current time:", chrome.runtime.lastError.message);
-             statusElement.textContent = "Error getting time.";
+             setStatus("Error getting time.", "error");
              return;
          }
         if (response && response.time !== undefined) {
@@ -101,7 +107,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const end = parseFloat(endTimeInput.value);
   
       if (isNaN(start) || isNaN(end) || start < 0 || end <= start) {
-        statusElement.textContent = "Status: Invalid start/end times.";
+        setStatus("Status: Invalid start/end times.", "error");
         return;
       }
   
@@ -112,16 +118,28 @@ document.addEventListener('DOMContentLoaded', () => {
       chrome.tabs.sendMessage(currentTabId, { action: "toggleLoop", start: start, end: end }, (response) => {
           if (chrome.runtime.lastError) {
               console.error("Error toggling loop:", chrome.runtime.lastError.message);
-              statusElement.textContent = "Error toggling loop.";
+              setStatus("Error toggling loop.", "error");
               return;
           }
         if (response && response.success) {
           isLooping = response.looping;
           updateLoopButton();
-          statusElement.textContent = `Status: ${isLooping ? 'Looping' : 'Stopped'}`;
+          setStatus(`Status: ${isLooping ? 'Looping' : 'Stopped'}`, isLooping ? 'looping' : 'idle');
         } else {
-          statusElement.textContent = "Status: Action failed.";
+          setStatus("Status: Action failed.", "error");
         }
       });
+    });
+
+    resetButton.addEventListener('click', () => {
+      startTimeInput.value = '';
+      endTimeInput.value = '';
+      chrome.storage.sync.remove(['loopStartTime', 'loopEndTime']);
+      if (isLooping && currentTabId) {
+        chrome.tabs.sendMessage(currentTabId, { action: "toggleLoop" }, () => {});
+        isLooping = false;
+        updateLoopButton();
+      }
+      setStatus('Status: Idle', 'idle');
     });
   });
